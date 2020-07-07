@@ -18,6 +18,11 @@ class Form extends React.Component {
     event.preventDefault()
   }
 
+  handleInputChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    })
+  }
 
   // not working 
   handleRemoveInput = (index) => {

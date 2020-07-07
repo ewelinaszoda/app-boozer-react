@@ -12,8 +12,9 @@ class CocktailsContainer extends React.Component {
     cocktails: [],
     cocktailId: null,
   }
+  
 
-addCocktail = (data) => {
+addCocktail = (e, data) => {
     // ??????????????
     // e.preventDefault()}
 
@@ -59,21 +60,21 @@ addCocktail = (data) => {
   render() {
 
     return (
-      <div class="ui three column doubling stackable grid container">
-        <div class="column">
+      <div >
+        <div>
           <CocktailsCollection
             cocktails={this.state.cocktails}
             handleClick={this.handleClick}
           />
         </div>
 
-        <div class="column">
+        <div>
           {
             this.state.cocktailId && <CocktailDetails cocktailId={this.state.cocktailId} />
           }
         </div>
 
-        <div class="column">
+        <div>
           <Form
             cocktails={this.state.cocktails}
             addCocktail={this.addCocktail}
