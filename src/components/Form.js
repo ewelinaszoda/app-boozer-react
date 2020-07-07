@@ -13,14 +13,15 @@ class Form extends React.Component {
     }],
   }
 
+  //????????????????//
   handleSubmit = (event, cocktail) => {
     event.preventDefault()
-    // const currentArrayCocktails = [...this.props.cocktails]
-    // this.setState({ [this.props.cocktails]: [...currentArrayCocktails, cocktail] })
   }
 
-  handleRemoveInput = () => {
-    this.setState({ proportions: this.state.proportions.filter((proportion) => { return proportion !== proportion }) })
+
+  // not working 
+  handleRemoveInput = (index) => {
+    this.setState({ proportions: this.state.proportions.filter((proportion) => { return proportion !== proportion[index] }) })
   }
 
   handleAddInput = () => {
@@ -28,16 +29,22 @@ class Form extends React.Component {
     this.setState({ proportions: [...this.state.proportions, newProportion] })
   }
 
-  handleInputChange = event => {
+  handleInputChange = (key, newValue, index) => {
+    const updatedArray = [...this.state.proportions]
+    // the key is ingredients or quantity 
+    updatedArray[index][key] = newValue
+
     this.setState({
-      [event.target.name]: event.target.value,
+      proportions: updatedArray,
     })
   }
 
   render() {
-
     return (
-      <form onSubmit={event => this.handleSubmit(event)}>
+      // <form onSubmit={()=> this.addCocktail(this.state)}
+      // >
+          <form onSubmit={(e)=> this.handleSubmit()}
+      >
         <h2>Create a Cocktail</h2>
 
         <label>Name</label>
@@ -71,8 +78,8 @@ class Form extends React.Component {
         <Proportion
           proportions={this.state.proportions}
           handleInputChange={this.handleInputChange}
-          ingredient={this.state.ingredient}
-          quantity={this.state.quantity}
+          ingredient={this.state.proportions.ingredient}
+          quantity={this.state.proportions.quantity}
           addInput={this.handleAddInput}
           removeInput={this.handleRemoveInput}
         />

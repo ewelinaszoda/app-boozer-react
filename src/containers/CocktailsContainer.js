@@ -13,6 +13,34 @@ class CocktailsContainer extends React.Component {
     cocktailId: null,
   }
 
+addCocktail = (data) => {
+    // ??????????????
+    // e.preventDefault()}
+
+    // const newCocktail = {
+    //   name: data.name,
+    //   description: data.description,
+    //   proportions: {
+    //     ingredient: data.ingredient,
+    //     quantity: data.quantity,
+    //   }
+    // }
+  
+    // fetch(`http://localhost:3000/cocktails`), {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     // Accept: "application/json",
+    //   },
+    //   body: JSON.stringify(newCocktail)
+    // }
+    //   .then(resp => resp.json())
+    //   .then(cocktail => {
+    //     this.setState({ cocktails: [...this.state.cocktails, cocktail] })
+    //   })
+    //   .catch(error => error.message)
+  }
+
 
   handleClick = (id) => {
     this.setState({
@@ -48,6 +76,7 @@ class CocktailsContainer extends React.Component {
         <div class="column">
           <Form
             cocktails={this.state.cocktails}
+            addCocktail={this.addCocktail}
           />
         </div>
       </div>
