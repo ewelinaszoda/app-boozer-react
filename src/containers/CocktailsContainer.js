@@ -14,7 +14,10 @@ class CocktailsContainer extends React.Component {
   }
   
 
-addCocktail = (e, data) => {
+addCocktail = (cocktail) => {
+  this.setState({
+    cocktails: [...this.state.cocktails, cocktail]
+  })
     // ??????????????
     // e.preventDefault()}
 
@@ -42,6 +45,8 @@ addCocktail = (e, data) => {
     //   .catch(error => error.message)
   }
 
+
+  
 
   handleClick = (id) => {
     this.setState({
@@ -76,7 +81,7 @@ addCocktail = (e, data) => {
 
         <div>
           <Form
-            cocktails={this.state.cocktails}
+            // cocktails={this.state.cocktails}
             addCocktail={this.addCocktail}
           />
         </div>

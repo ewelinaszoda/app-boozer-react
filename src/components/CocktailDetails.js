@@ -38,8 +38,9 @@ class CocktailDetails extends React.Component {
       <p>{this.state.description}</p>
       <p>{this.state.instructions}</p>
       <ul>{this.state.proportions.map(proportion =>
-        <li>
-          <stronger>{proportion.amount}</stronger> {proportion.ingredient_name}
+        <li
+        key={proportion.id}>
+          {proportion.amount} - {proportion.ingredient_name}
         </li>
       )}
       </ul>

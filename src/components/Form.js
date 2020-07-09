@@ -1,5 +1,7 @@
 import React from 'react'
 import Proportion from './Proportion'
+import { Button } from 'semantic-ui-react'
+
 
 class Form extends React.Component {
 
@@ -13,25 +15,46 @@ class Form extends React.Component {
     }],
   }
 
-  //????????????????//
-  handleSubmit = (event, cocktail) => {
+  handleSubmit = (event) => {
     event.preventDefault()
-  }
 
-  handleInputChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value,
+    const newCocktail = this.state
+    
+    fetch(`http://localhost:3000/api/v1/cocktails`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(newCocktail)
     })
+      .then(resp => resp.json())
+      .then(cocktail => this.props.addCocktail(cocktail))
+      .catch(error => error.message)
   }
 
   // not working 
-  handleRemoveInput = (index) => {
-    this.setState({ proportions: this.state.proportions.filter((proportion) => { return proportion !== proportion[index] }) })
+  handleRemoveInput = (event) => {
+    event.preventDefault()
+    // console.log(index)
+    this.setState({ proportions: this.state.proportions.slice(0, this.state.proportions.length - 1) })
   }
 
-  handleAddInput = () => {
+  // handleRemoveInput = (event) => {
+  //   event.preventDefault()
+  //   this.setState({ proportions: this.state.proportions.filter(proportion => proportion !== proportion[proportion.length - 1] ) })
+  // }
+
+  handleAddInput = (event) => {
+    event.preventDefault()
     const newProportion = { ingredient: "", quantity: 0 }
     this.setState({ proportions: [...this.state.proportions, newProportion] })
+  }
+
+  handleInputChangeMain = ({target: { name, value }}) => {
+    this.setState({
+      [name]: value,
+    })
   }
 
   handleInputChange = (key, newValue, index) => {
@@ -44,12 +67,13 @@ class Form extends React.Component {
     })
   }
 
+
   render() {
     return (
       // <form onSubmit={()=> this.addCocktail(this.state)}
       // >
-          <form onSubmit={(e)=> this.handleSubmit()}
-      >
+      <form onSubmit={(event) => this.handleSubmit(event)}>
+
         <h2>Create a Cocktail</h2>
 
         <label>Name</label>
@@ -57,7 +81,7 @@ class Form extends React.Component {
           type="text"
           name="name"
           placeholder="cocktail's name..."
-          onChange={this.handleInputChange}
+          onChange={this.handleInputChangeMain}
           value={this.state.name}
         />
 
@@ -66,7 +90,7 @@ class Form extends React.Component {
           type="text"
           name="description"
           placeholder="description..."
-          onChange={this.handleInputChange}
+          onChange={this.handleInputChangeMain}
           value={this.state.description}
         />
         <label>Instruction</label>
@@ -74,7 +98,7 @@ class Form extends React.Component {
           type="text"
           name="instruction"
           placeholder="instruction..."
-          onChange={this.handleInputChange}
+          onChange={this.handleInputChangeMain}
           value={this.state.instruction}
         />
         <hr />
@@ -85,14 +109,15 @@ class Form extends React.Component {
           handleInputChange={this.handleInputChange}
           ingredient={this.state.proportions.ingredient}
           quantity={this.state.proportions.quantity}
-          addInput={this.handleAddInput}
-          removeInput={this.handleRemoveInput}
+          handleAddInput={this.handleAddInput}
+          handleRemoveInput={this.handleRemoveInput}
         />
         <hr />
-        <button type="submit">Create Cocktail</button>
+        <Button type="submit">Create Cocktail</Button>
       </form >
     )
   }
 }
+
 
 export default Form

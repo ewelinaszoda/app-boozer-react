@@ -1,10 +1,11 @@
 import React from 'react'
+// import { Button } from 'semantic-ui-react'
 
 class Proportion extends React.Component {
 
   renderInput = (proportion, index) => {
     return <div 
-    key={proportion.id}
+    key={index}
     >
       <label>Ingredient Name</label>
       <input
@@ -21,7 +22,7 @@ class Proportion extends React.Component {
         name="quantity"
         placeholder="quantity..."
         value={proportion.quantity}
-        onChange={e => this.props.handleInputChange("quantity", e.target.value, index)}
+        onChange={(e) => this.props.handleInputChange("quantity", e.target.value, index)}
         value={this.props.quantity} />
     </div>
   }
@@ -31,8 +32,8 @@ class Proportion extends React.Component {
       {
         this.props.proportions.map(this.renderInput)
       }
-      <button onClick={this.props.addInput}> + </button>
-      <button onClick={() => this.props.removeInput()}> - </button>
+      <button onClick={this.props.handleAddInput}> + </button>
+      <button onClick={(event, index) => this.props.handleRemoveInput(event, index)}> - </button>
     </React.Fragment>
 
   }
