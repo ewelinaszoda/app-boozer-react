@@ -1,52 +1,32 @@
 import React from 'react'
-import CocktailsCollection from './CocktailsCollection'
-// import Cocktail from './components/Cocktail'
-import CocktailDetails from '../components/CocktailDetails'
-import Form from '../components/Form'
-
 import API from '../API'
+import CocktailsCollection from './CocktailsCollection'
+import CocktailDetails from '../components/CocktailDetails'
+import CocktailForm from '../components/CocktailForm'
+// import SearchCocktail from '../components/SearchCocktail'
 
 class CocktailsContainer extends React.Component {
 
   state = {
     cocktails: [],
     cocktailId: null,
-  }
-  
-
-addCocktail = (cocktail) => {
-  this.setState({
-    cocktails: [...this.state.cocktails, cocktail]
-  })
-    // ??????????????
-    // e.preventDefault()}
-
-    // const newCocktail = {
-    //   name: data.name,
-    //   description: data.description,
-    //   proportions: {
-    //     ingredient: data.ingredient,
-    //     quantity: data.quantity,
-    //   }
-    // }
-  
-    // fetch(`http://localhost:3000/cocktails`), {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     // Accept: "application/json",
-    //   },
-    //   body: JSON.stringify(newCocktail)
-    // }
-    //   .then(resp => resp.json())
-    //   .then(cocktail => {
-    //     this.setState({ cocktails: [...this.state.cocktails, cocktail] })
-    //   })
-    //   .catch(error => error.message)
+    userSearch: "",
   }
 
+  updateUserSearch = (e) => {
+    this.setState({ userSearch: e.target.value })
+  }
 
-  
+  filterCocktails = () => {
+
+    return this.state.cocktails.filter(cocktail => cocktail.name.includes(this.state.userSearch))
+  }
+
+  addCocktail = (cocktail) => {
+    this.setState({
+      cocktails: [...this.state.cocktails, cocktail]
+    })
+  }
 
   handleClick = (id) => {
     this.setState({
@@ -54,36 +34,40 @@ addCocktail = (cocktail) => {
     })
   }
 
-
   componentDidMount() {
     API.getAllCocktails()
       .then(data => this.setState({ cocktails: data }))
       .catch(error => console.log(error.message))
   }
 
-
   render() {
-
     return (
-      <div >
-        <div>
-          <CocktailsCollection
-            cocktails={this.state.cocktails}
-            handleClick={this.handleClick}
-          />
-        </div>
+      <div>
+          {/* <SearchCocktail
+          updateUserSearch={this.updateUserSearch}
+          userSearch={this.state.userSearch}
+        /> */}
+        <div className="ui divided three column grid">
+         <div className="column">
+            <CocktailsCollection
+              cocktails={this.filterCocktails()}
+              handleClick={this.handleClick}
+            />
+          </div>
 
-        <div>
-          {
-            this.state.cocktailId && <CocktailDetails cocktailId={this.state.cocktailId} />
-          }
-        </div>
+          <div className="column">
+            {
+              this.state.cocktailId && <CocktailDetails cocktailId={this.state.cocktailId} />
+            }
+          </div>
 
-        <div>
-          <Form
-            // cocktails={this.state.cocktails}
-            addCocktail={this.addCocktail}
-          />
+          <div className="column">
+            <CocktailForm
+              // cocktails={this.state.cocktails}
+              addCocktail={this.addCocktail}
+            />
+          </div>
+
         </div>
       </div>
     )

@@ -1,25 +1,26 @@
 import React from 'react'
 import Proportion from './Proportion'
-import { Button } from 'semantic-ui-react'
+import { Form, Button, Input, TextArea } from 'semantic-ui-react'
 
 
-class Form extends React.Component {
+class CocktailForm extends React.Component {
 
   state = {
     name: "",
     description: "",
-    instruction: "",
+    instructions: "",
     proportions: [{
       ingredient: "",
-      quantity: 0,
+      quantity: "",
     }],
   }
 
   handleSubmit = (event) => {
     event.preventDefault()
+    event.target.reset();
 
     const newCocktail = this.state
-    
+
     fetch(`http://localhost:3000/api/v1/cocktails`, {
       method: "POST",
       headers: {
@@ -51,7 +52,7 @@ class Form extends React.Component {
     this.setState({ proportions: [...this.state.proportions, newProportion] })
   }
 
-  handleInputChangeMain = ({target: { name, value }}) => {
+  handleInputChangeMain = ({ target: { name, value } }) => {
     this.setState({
       [name]: value,
     })
@@ -72,37 +73,43 @@ class Form extends React.Component {
     return (
       // <form onSubmit={()=> this.addCocktail(this.state)}
       // >
-      <form onSubmit={(event) => this.handleSubmit(event)}>
-
+      <Form onSubmit={(event) => this.handleSubmit(event)}>
         <h2>Create a Cocktail</h2>
+        <Form.Group widths='equal'>
 
-        <label>Name</label>
-        <input
-          type="text"
-          name="name"
-          placeholder="cocktail's name..."
-          onChange={this.handleInputChangeMain}
-          value={this.state.name}
-        />
+          <Form.Field
+            control={Input}
+            label="Name"
+            type="text"
+            name="name"
+            placeholder="cocktail's name..."
+            onChange={this.handleInputChangeMain}
+            value={this.state.name}
+          />
+  </Form.Group>
+  <Form.Group widths='equal'>
+          <Form.Field
+            control={TextArea}
+            label="Description"
+            type="text"
+            name="description"
+            placeholder="description..."
+            onChange={this.handleInputChangeMain}
+            value={this.state.description}
+          />
 
-        <label>Description</label>
-        <input
-          type="text"
-          name="description"
-          placeholder="description..."
-          onChange={this.handleInputChangeMain}
-          value={this.state.description}
-        />
-        <label>Instruction</label>
-        <input
-          type="text"
-          name="instruction"
-          placeholder="instruction..."
-          onChange={this.handleInputChangeMain}
-          value={this.state.instruction}
-        />
+          <Form.Field
+            control={TextArea}
+            label="Instruction"
+            type="text"
+            name="instructions"
+            placeholder="instructions..."
+            onChange={this.handleInputChangeMain}
+            value={this.state.instructions}
+          />
+     </Form.Group>
         <hr />
-        <label>Proportion</label>
+
         <br />
         <Proportion
           proportions={this.state.proportions}
@@ -113,11 +120,11 @@ class Form extends React.Component {
           handleRemoveInput={this.handleRemoveInput}
         />
         <hr />
-        <Button type="submit">Create Cocktail</Button>
-      </form >
+        <Form.Field control={Button}>Create Cocktail</Form.Field>
+      </Form >
     )
   }
 }
 
 
-export default Form
+export default CocktailForm

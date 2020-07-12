@@ -7,6 +7,15 @@ class Proportion extends React.Component {
     return <div 
     key={index}
     >
+    <label>Quantity</label>
+    <input
+      type="number"
+      name="quantity"
+      placeholder="quantity..."
+      value={proportion.quantity}
+      onChange={(e) => this.props.handleInputChange("quantity", e.target.value, index)}
+      value={this.props.quantity} />
+      
       <label>Ingredient Name</label>
       <input
         type="text"
@@ -16,17 +25,9 @@ class Proportion extends React.Component {
         onChange={(e) => this.props.handleInputChange("ingredient", e.target.value, index)}
         value={this.props.ingredient} />
 
-      <label>Quantity</label>
-      <input
-        type="number"
-        name="quantity"
-        placeholder="quantity..."
-        value={proportion.quantity}
-        onChange={(e) => this.props.handleInputChange("quantity", e.target.value, index)}
-        value={this.props.quantity} />
     </div>
   }
-
+  
   render() {
     return <React.Fragment>
       {

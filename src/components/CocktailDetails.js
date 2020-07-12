@@ -21,15 +21,15 @@ class CocktailDetails extends React.Component {
 
   componentDidMount() {
     API.getCocktailDetails(this.props.cocktailId)
-      .then(data => this.getData(data))
+      .then(this.getData)
   }
 
   componentDidUpdate(prevProps) {
-    if( prevProps.cocktailId !== this.props.cocktailId) {
-      API.getCocktailDetails(prevProps.cocktailId)
-      .then(data => this.getData(data))
+    if (prevProps.cocktailId !== this.props.cocktailId) {
+      API.getCocktailDetails(this.props.cocktailId)
+        .then(this.getData)
     }
-  
+
   }
 
   renderDetails = () => {
@@ -39,7 +39,7 @@ class CocktailDetails extends React.Component {
       <p>{this.state.instructions}</p>
       <ul>{this.state.proportions.map(proportion =>
         <li
-        key={proportion.id}>
+          key={proportion.id}>
           {proportion.amount} - {proportion.ingredient_name}
         </li>
       )}
