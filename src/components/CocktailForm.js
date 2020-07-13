@@ -11,7 +11,7 @@ class CocktailForm extends React.Component {
     instructions: "",
     proportions: [{
       ingredient: "",
-      quantity: "",
+      amount: "",
     }],
   }
 
@@ -30,25 +30,20 @@ class CocktailForm extends React.Component {
       body: JSON.stringify(newCocktail)
     })
       .then(resp => resp.json())
-      .then(cocktail => this.props.addCocktail(cocktail))
+      .then(console.log)
       .catch(error => error.message)
   }
 
-  // not working 
+  // .then(cocktail => this.props.addCocktail(cocktail))
+
   handleRemoveInput = (event) => {
     event.preventDefault()
-    // console.log(index)
     this.setState({ proportions: this.state.proportions.slice(0, this.state.proportions.length - 1) })
   }
 
-  // handleRemoveInput = (event) => {
-  //   event.preventDefault()
-  //   this.setState({ proportions: this.state.proportions.filter(proportion => proportion !== proportion[proportion.length - 1] ) })
-  // }
-
   handleAddInput = (event) => {
     event.preventDefault()
-    const newProportion = { ingredient: "", quantity: 0 }
+    const newProportion = { ingredient: "", amount: 0 }
     this.setState({ proportions: [...this.state.proportions, newProportion] })
   }
 
@@ -60,7 +55,7 @@ class CocktailForm extends React.Component {
 
   handleInputChange = (key, newValue, index) => {
     const updatedArray = [...this.state.proportions]
-    // the key is ingredients or quantity 
+    // the key is ingredients or amount 
     updatedArray[index][key] = newValue
 
     this.setState({
@@ -86,8 +81,8 @@ class CocktailForm extends React.Component {
             onChange={this.handleInputChangeMain}
             value={this.state.name}
           />
-  </Form.Group>
-  <Form.Group widths='equal'>
+        </Form.Group>
+        <Form.Group widths='equal'>
           <Form.Field
             control={TextArea}
             label="Description"
@@ -107,7 +102,7 @@ class CocktailForm extends React.Component {
             onChange={this.handleInputChangeMain}
             value={this.state.instructions}
           />
-     </Form.Group>
+        </Form.Group>
         <hr />
 
         <br />
@@ -115,7 +110,7 @@ class CocktailForm extends React.Component {
           proportions={this.state.proportions}
           handleInputChange={this.handleInputChange}
           ingredient={this.state.proportions.ingredient}
-          quantity={this.state.proportions.quantity}
+          amount={this.state.proportions.amount}
           handleAddInput={this.handleAddInput}
           handleRemoveInput={this.handleRemoveInput}
         />

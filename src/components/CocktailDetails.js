@@ -28,9 +28,14 @@ class CocktailDetails extends React.Component {
     if (prevProps.cocktailId !== this.props.cocktailId) {
       API.getCocktailDetails(this.props.cocktailId)
         .then(this.getData)
-    }
+    }}
 
-  }
+  //  showDetails = (cocktailId) => {
+  //     if (cocktailId === this.props.cocktailId) {
+  //       API.getCocktailDetails(this.props.cocktailId)
+  //         .then(this.getData)
+  //     }
+  // }
 
   renderDetails = () => {
     return <React.Fragment>
@@ -40,7 +45,7 @@ class CocktailDetails extends React.Component {
       <ul>{this.state.proportions.map(proportion =>
         <li
           key={proportion.id}>
-          {proportion.amount} - {proportion.ingredient_name}
+          {proportion.amount} - {proportion.ingredient}
         </li>
       )}
       </ul>
@@ -52,6 +57,7 @@ class CocktailDetails extends React.Component {
   render() {
     return (
       <React.Fragment>
+        {/* {this.showDetails()} */}
         {this.renderDetails()}
       </React.Fragment>
     )

@@ -3,7 +3,7 @@ import API from '../API'
 import CocktailsCollection from './CocktailsCollection'
 import CocktailDetails from '../components/CocktailDetails'
 import CocktailForm from '../components/CocktailForm'
-// import SearchCocktail from '../components/SearchCocktail'
+import SearchCocktail from '../components/SearchCocktail'
 
 class CocktailsContainer extends React.Component {
 
@@ -18,8 +18,9 @@ class CocktailsContainer extends React.Component {
   }
 
   filterCocktails = () => {
-
-    return this.state.cocktails.filter(cocktail => cocktail.name.includes(this.state.userSearch))
+    return this.state.cocktails.filter(cocktail => {
+      cocktail.name.includes(this.state.userSearch)
+    })
   }
 
   addCocktail = (cocktail) => {
@@ -43,14 +44,15 @@ class CocktailsContainer extends React.Component {
   render() {
     return (
       <div>
-          {/* <SearchCocktail
+          <SearchCocktail
           updateUserSearch={this.updateUserSearch}
           userSearch={this.state.userSearch}
-        /> */}
+        />
         <div className="ui divided three column grid">
          <div className="column">
             <CocktailsCollection
               cocktails={this.filterCocktails()}
+              cocktails={this.state.cocktails}
               handleClick={this.handleClick}
             />
           </div>

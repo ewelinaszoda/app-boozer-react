@@ -1,5 +1,4 @@
 import React from 'react'
-// import Cocktail from '../components/Cocktail'
 
 class CocktailsCollection extends React.Component {
 
