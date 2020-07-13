@@ -13,6 +13,7 @@ class CocktailsContainer extends React.Component {
     userSearch: "",
   }
 
+  // not working
   updateUserSearch = (e) => {
     this.setState({ userSearch: e.target.value })
   }
