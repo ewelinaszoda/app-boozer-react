@@ -1,6 +1,6 @@
 import React from 'react'
 import Proportion from './Proportion'
-import { Form, Button, Input, TextArea } from 'semantic-ui-react'
+import { Button,Form, Input, TextArea } from 'semantic-ui-react'
 
 
 class CocktailForm extends React.Component {
